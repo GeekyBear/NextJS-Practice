@@ -3,7 +3,9 @@ import LikeButton from "./LikeButton";
 
 const fetchPosts = () => {
   return fetch("https://jsonplaceholder.typicode.com/posts", {
-    cache: "no-store",
+    next: {
+      revalidate: 60,
+    },
   })
     .then((res) => res.json())
     .catch((error) => console.log(error));

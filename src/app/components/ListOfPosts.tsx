@@ -10,14 +10,19 @@ const fetchPosts = () => {
 };
 
 export async function ListOfPosts() {
-  const posts = await fetchPosts();
-  return posts.slice(0, 5).map((post: any) => (
-    <article key={post.id}>
-      <Link href="/posts/[id]" as={`/posts/${post.id}`}>
-        <h2 className="text-lg font-semibold text-sky-600">{post.title}</h2>
-        <p>{post.body}</p>
-        <LikeButton id={post.id} />
-      </Link>
-    </article>
-  ));
+  try {
+    const posts = await fetchPosts();
+
+    return posts.slice(0, 5).map((post: any) => (
+      <article key={post.id}>
+        <Link href="/posts/[id]" as={`/posts/${post.id}`}>
+          <h2 className="text-lg font-semibold text-sky-600">{post.title}</h2>
+          <p>{post.body}</p>
+          <LikeButton id={post.id} />
+        </Link>
+      </article>
+    ));
+  } catch (error) {
+    console.log(error);
+  }
 }
